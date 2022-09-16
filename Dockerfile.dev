@@ -1,5 +1,5 @@
 # This dockerfile is to build each branch seperately (for dev purposes)
-FROM node:10
+FROM node:14.17.6
 # Create Remix user, don't use root!
 # RUN yes | adduser --disabled-password remix && mkdir /app
 # USER remix
@@ -10,8 +10,8 @@ WORKDIR /home/remix
 
 COPY ./ ./
 
-RUN npm ci
-RUN npm run build
+RUN yarn --frozen-lockfile
+RUN yarn build:production
 
 FROM nginx:alpine
 WORKDIR /
